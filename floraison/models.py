@@ -10,6 +10,12 @@ class user_address(models.Model):
     postal = models.IntegerField()
     contact_phone = models.IntegerField()
 
+    def __str__(self):
+        return self.user + "'s address"
+
+    class Meta():
+        verbose_name_plural = 'Addresses'
+
 class order(models.Model):
     total = models.FloatField(max_length=200)
     paid = models.BooleanField(default=False)
@@ -18,24 +24,44 @@ class order(models.Model):
     due_date = models.DateTimeField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.id
+
 class category(models.Model):
     name= models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    class Meta():
+        verbose_name_plural = 'Categories'
 
 class cake_type(models.Model):
     name = models.CharField(max_length=50)
     modifier = models.FloatField(default=0)
 
+    def __str__(self):
+        return self.name
+
 class cookie_type(models.Model):
     name = models.CharField(max_length=200)
     modifier = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.name
 
 class frosting(models.Model):
     name = models.CharField(max_length=50)
     modifier = models.FloatField(default=0)
 
+    def __str__(self):
+        return self.name
+
 class filling(models.Model):
     name = models.CharField(max_length=50)
     modifier = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.name
 
 class item(models.Model):
     name = models.CharField(max_length=200)
@@ -49,7 +75,13 @@ class item(models.Model):
     filling = models.ForeignKey(filling, on_delete=models.CASCADE)
     published = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.name
+
 class order_item(models.Model):
     order = models.ForeignKey(order, on_delete=models.CASCADE)
     item = models.ForeignKey(item, on_delete=models.CASCADE)
     unit_price = models.FloatField()
+
+    def __str__(self):
+        return self.item
