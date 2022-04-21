@@ -31,6 +31,7 @@ CSRF_TRUSTED_ORIGINS = ['https://*.gitpod.io']
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'floraison.apps.FloraisonConfig',
     "phonenumber_field",
     'django.contrib.admin',
