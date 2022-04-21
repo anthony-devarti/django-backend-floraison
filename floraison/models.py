@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 class user_address(models.Model):
@@ -8,10 +9,10 @@ class user_address(models.Model):
     address_2 = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     postal = models.IntegerField()
-    contact_phone = models.IntegerField()
+    contact_phone = PhoneNumberField()
 
     def __str__(self):
-        return self.user + "'s address"
+        return self.address_1
 
     class Meta():
         verbose_name_plural = 'Addresses'
@@ -67,7 +68,7 @@ class item(models.Model):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(category, on_delete=models.CASCADE)
     starting_price = models.FloatField()
-    message = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
     days_required = models.IntegerField()
     cake_type = models.ForeignKey(cake_type, on_delete=models.CASCADE) 
     cookie_type = models.ForeignKey(cookie_type, on_delete=models.CASCADE)
@@ -82,6 +83,8 @@ class order_item(models.Model):
     order = models.ForeignKey(order, on_delete=models.CASCADE)
     item = models.ForeignKey(item, on_delete=models.CASCADE)
     unit_price = models.FloatField()
+    message = models.CharField(max_length=50, null=True)
+    special_instructions = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.item
