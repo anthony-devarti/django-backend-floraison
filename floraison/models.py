@@ -69,7 +69,7 @@ class item(models.Model):
     starting_price = models.FloatField()
     message = models.CharField(max_length=50)
     days_required = models.IntegerField()
-    cake_type = models.ForeignKey(cake_type, on_delete=models.CASCADE)
+    cake_type = models.ForeignKey(cake_type, on_delete=models.CASCADE) 
     cookie_type = models.ForeignKey(cookie_type, on_delete=models.CASCADE)
     frosting = models.ForeignKey(frosting, on_delete=models.CASCADE)
     filling = models.ForeignKey(filling, on_delete=models.CASCADE)
