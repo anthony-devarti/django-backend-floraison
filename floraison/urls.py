@@ -7,10 +7,10 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'items', views.ItemViewSet)
+router.register(r'users', views.UserViewSet)
+router.register(r'orders', views.OrderViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),
-    #floraison/item# returns the item #
-    path('item<int:item_id>/', views.item),
     path('', include(router.urls)),
 ]
