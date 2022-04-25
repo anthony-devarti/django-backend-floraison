@@ -19,10 +19,10 @@ from rest_framework import routers
 from floraison import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('floraison/', include('floraison.urls')),
-    path('users/', include('rest_framework.urls', namespace='rest_framework'))
+    # path('users/', include('rest_framework.urls', namespace='rest_framework'))
 ]
