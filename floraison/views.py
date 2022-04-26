@@ -8,6 +8,7 @@ from .models import item, order
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
+from django.views.generic import ListView
 
 # Create your views here.
 def index(request):
@@ -45,3 +46,8 @@ class OrderViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['id', 'user']
     #I may need to filter further to remove orders that have been marked as completed
+
+
+class HomePageView(ListView):
+    model = item
+    template_name = 'home.html'
