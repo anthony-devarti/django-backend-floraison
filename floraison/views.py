@@ -13,10 +13,6 @@ from rest_framework.viewsets import ModelViewSet
 def index(request):
     return HttpResponse("You're at the bakery index.")
 
-##I need to change this so I can see more than just the item number
-# def item(request, item_id):
-#     return HttpResponse("You're looking at %s" % item_id)
-
 
 class ItemViewSet(viewsets.ModelViewSet):
     """
@@ -28,13 +24,6 @@ class ItemViewSet(viewsets.ModelViewSet):
     filterset_fields = ['id', 'name', 'category']
     search_fields = ['=name', 'category']
     ordering = ['id']
-
-# class CakeViewSet(viewsets.ModelViewSet):
-#     """
-
-#     """
-#     queryset = item.objects.all()
-#     serializer_class = CakeSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     """
