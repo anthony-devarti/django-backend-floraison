@@ -74,7 +74,7 @@ class item(models.Model):
     cookie_type = models.ForeignKey(cookie_type, on_delete=models.CASCADE)
     frosting = models.ForeignKey(frosting, on_delete=models.CASCADE)
     filling = models.ForeignKey(filling, on_delete=models.CASCADE)
-    image = models.FileField(upload_to='./images/', default='None')
+    photo = models.ImageField(upload_to='images/', default='../media/images/nbc-tech.png')
     published = models.BooleanField(default=True)
 
     def __str__(self):
