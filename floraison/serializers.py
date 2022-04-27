@@ -3,7 +3,7 @@ from rest_framework import serializers
 from floraison.models import item, order
 
 ### IMPORTANT: May need to change gitpod link each time a new workspace is opened ###
-BASE_API_URL = 'https://8000-anthonydeva-djangobacke-pk8s8czgzh1.ws-us42.gitpod.io'
+BASE_API_URL = 'https://8000-anthonydeva-djangobacke-pk8s8czgzh1.ws-us42.gitpod.io/'
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -12,7 +12,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'username', 'email', 'groups']
 
 class ItemSerializer(serializers.ModelSerializer):
-    ##ITS NICK! Add your variable here
     photo = serializers.SerializerMethodField('get_img_url')
     class Meta:
         model = item
