@@ -73,7 +73,6 @@ class item(models.Model):
     description = models.CharField(max_length=200)
     days_required = models.IntegerField()
     cake_type = models.ForeignKey(cake_type, on_delete=models.CASCADE) 
-    cookie_type = models.ForeignKey(cookie_type, on_delete=models.CASCADE)
     frosting = models.ForeignKey(frosting, on_delete=models.CASCADE)
     filling = models.ForeignKey(filling, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='images/', default='../media/images/nbc-tech.png')
