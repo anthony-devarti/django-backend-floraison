@@ -3,8 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework import permissions
 from django.contrib.auth.models import User
-from floraison.serializers import UserSerializer, ItemSerializer, OrderSerializer
-from .models import item, order
+from floraison.serializers import UserSerializer, ItemSerializer, OrderSerializer, CookieTypeSerializer
+from .models import item, order, cookie_type
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
@@ -51,3 +51,10 @@ class OrderViewSet(viewsets.ModelViewSet):
 class HomePageView(ListView):
     model = item
     template_name = 'home.html'
+
+class CookieViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for cookies, yo
+    """
+    queryset = cookie_type.objects.all()
+    serializer_class = CookieTypeSerializer
