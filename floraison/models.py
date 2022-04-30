@@ -45,6 +45,8 @@ class cake_type(models.Model):
 
 class cookie_type(models.Model):
     name = models.CharField(max_length=200)
+    image = models.ImageField(default='../media/images/nbc-tech.png')
+    description = models.CharField(max_length=200)
     modifier = models.FloatField(default=0)
 
     def __str__(self):

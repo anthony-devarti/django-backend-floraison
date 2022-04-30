@@ -12,6 +12,7 @@ router = routers.DefaultRouter()
 router.register(r'items', views.ItemViewSet)
 router.register(r'users', views.UserViewSet)
 router.register(r'orders', views.OrderViewSet)
+router.register(r'cookie_type', views.CookieViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),
