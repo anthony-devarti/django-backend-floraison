@@ -21,12 +21,12 @@ class order(models.Model):
     total = models.FloatField(max_length=200)
     paid = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
-    delivery = models.ForeignKey(user_address, on_delete=models.CASCADE)
-    due_date = models.DateTimeField()
+    # delivery = models.ForeignKey(user_address, on_delete=models.CASCADE)
+    due_date = models.DateTimeField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 class category(models.Model):
     name= models.CharField(max_length=50)
@@ -89,4 +89,4 @@ class order_item(models.Model):
     special_instructions = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.item
+        return str(self.message)

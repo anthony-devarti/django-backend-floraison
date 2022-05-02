@@ -13,6 +13,7 @@ router.register(r'items', views.ItemViewSet)
 router.register(r'users', views.UserViewSet)
 router.register(r'orders', views.OrderViewSet)
 router.register(r'cookie_type', views.CookieViewSet)
+router.register(r'order_item', views.OrderItemViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),
