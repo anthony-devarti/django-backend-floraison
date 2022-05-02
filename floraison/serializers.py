@@ -37,7 +37,7 @@ class CookieTypeSerializer(serializers.ModelSerializer):
             return BASE_API_URL + obj.image.url
 
 
-##take the cart and do https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-multiple-objects kind of things to make a new order, it add all of the items in the cart to the order items table
+##take the cart and do https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-multiple-objects kind of things to make a new order, it add all of the items in the cart to the order items table with the order id of the new order that has just been made
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = order_item
