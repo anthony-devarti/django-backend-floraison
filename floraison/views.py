@@ -69,11 +69,11 @@ class OrderItemViewSet(NestedViewSetMixin, ModelViewSet):
     queryset = order_item.objects.all()
     serializer_class = OrderItemSerializer
 
-class CustomerOrderViewSet(NestedViewSetMixin, ModelViewSet):
-    """
-    For orders with nested serialization
-    """
-    queryset = order.objects.all()
-    serializer_class = OrderSerializer
+# class CustomerOrderViewSet(NestedViewSetMixin, ModelViewSet):
+#     """
+#     For orders with nested serialization
+#     """
+#     queryset = order.objects.all()
+#     serializer_class = OrderSerializer
 
 ##the goal is to create an api endpoint that can receive a shopping cart array, create a row on the order table, then add each item in the shopping cart array to the order items table

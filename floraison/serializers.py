@@ -21,10 +21,10 @@ class ItemSerializer(serializers.ModelSerializer):
         if obj.photo:
             return BASE_API_URL + obj.photo.url
 
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = order
-        fields = '__all__'
+# class OrderSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = order
+#         fields = '__all__'
 
 class CookieTypeSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField('get_cookie_img_url')
@@ -36,19 +36,33 @@ class CookieTypeSerializer(serializers.ModelSerializer):
         if obj.image:
             return BASE_API_URL + obj.image.url
 
-
-##take the cart and do https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-multiple-objects kind of things to make a new order, it add all of the items in the cart to the order items table with the order id of the new order that has just been made
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = order_item
-        fields=['message', 'item', 'order', 'unit_price', 'special_instructions']
-    def create(self, validated_data):
-        from pprint import pprint
-        pprint(self)
+        fields = [
+            'message',
+            'special_instructions',
+        ]
 
-class CustomerOrderSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer, serializers.Serializer):
+    order_items = serializers.ListField()
+
     class Meta:
         model = order
-        fields= '__all__'
-    def create (self, validated_data):
-        pprint(self)
+        fields = [
+            'total',
+            'paid',
+            'completed',
+            'due_date',
+            'user',
+            'order_items'
+        ]
+
+    def create(self, validated_data):
+        order_items_data = validated_data.pop('order_items')
+        order = order.objects.create(**validated_data)
+        for oi in order_items_data:
+            item_id = oi.pop('item_id')
+            item = item.objects.get(pk=item_id)
+            oi.objects.create(order=order, item=item, **order_item)
+        return order
