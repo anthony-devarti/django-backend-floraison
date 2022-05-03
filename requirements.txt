@@ -28,6 +28,7 @@ django-phonenumbers==1.0.1
 django-rest-framework==0.1.0
 djangorestframework==3.13.1
 docutils==0.18.1
+drf-extensions==0.7.1
 entrypoints==0.4
 executing==0.8.3
 filelock==3.6.0

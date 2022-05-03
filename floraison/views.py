@@ -62,9 +62,18 @@ class CookieViewSet(viewsets.ModelViewSet):
     queryset = cookie_type.objects.all()
     serializer_class = CookieTypeSerializer
 
-class OrderItemViewSet(viewsets.ModelViewSet):
+class OrderItemViewSet(NestedViewSetMixin, ModelViewSet):
     """
     API endpoint for adding order items
     """
     queryset = order_item.objects.all()
     serializer_class = OrderItemSerializer
+
+class CustomerOrderViewSet(NestedViewSetMixin, ModelViewSet):
+    """
+    For orders with nested serialization
+    """
+    queryset = order.objects.all()
+    serializer_class = OrderSerializer
+
+##the goal is to create an api endpoint that can receive a shopping cart array, create a row on the order table, then add each item in the shopping cart array to the order items table

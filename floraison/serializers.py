@@ -45,3 +45,10 @@ class OrderItemSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         from pprint import pprint
         pprint(self)
+
+class CustomerOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = order
+        fields= '__all__'
+    def create (self, validated_data):
+        pprint(self)
