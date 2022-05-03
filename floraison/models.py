@@ -17,7 +17,7 @@ class user_address(models.Model):
     class Meta():
         verbose_name_plural = 'Addresses'
 
-class order(models.Model):
+class Order(models.Model):
     total = models.FloatField(max_length=200)
     paid = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
@@ -82,7 +82,7 @@ class item(models.Model):
         return self.name
 
 class order_item(models.Model):
-    order = models.ForeignKey(order, on_delete=models.CASCADE)
+    Order = models.ForeignKey(Order, on_delete=models.CASCADE)
     item = models.ForeignKey(item, on_delete=models.CASCADE)
     unit_price = models.FloatField()
     message = models.CharField(max_length=50, null=True)

@@ -4,12 +4,12 @@ from rest_framework import viewsets, status
 from rest_framework import permissions
 from django.contrib.auth.models import User
 from floraison.serializers import UserSerializer, ItemSerializer, OrderSerializer, CookieTypeSerializer, OrderItemSerializer
-from .models import item, order, cookie_type, order_item
+from .models import item, Order, cookie_type, order_item
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 from django.views.generic import ListView
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
@@ -42,9 +42,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class OrderViewSet(viewsets.ModelViewSet):
     """
-    API endpoint for orders
+    API endpoint for Orders
     """
-    queryset = order.objects.all().order_by('-due_date')
+    queryset = Order.objects.all().order_by('-due_date')
     serializer_class = OrderSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['id', 'user']
@@ -62,12 +62,53 @@ class CookieViewSet(viewsets.ModelViewSet):
     queryset = cookie_type.objects.all()
     serializer_class = CookieTypeSerializer
 
-class OrderItemViewSet(NestedViewSetMixin, ModelViewSet):
+class OrderItemViewSet(viewsets.ModelViewSet):
     """
     API endpoint for adding order items
     """
     queryset = order_item.objects.all()
     serializer_class = OrderItemSerializer
+
+# {
+#     "total": 123,
+#     "paid": true,
+#     "user": 1,
+#     "order_items": [
+#         {
+#             "item_id": 3,
+#             "unit_price": 24.99,
+#             "message": "nadlkfnajdf",
+#             "special_instructions": "some"
+#         },
+#         {
+#             "item_id": 2,
+#             "unit_price": 24.99,
+#             "message": "nadlkfnajdf",
+#             "special_instructions": "some"
+#         },
+#         {
+#             "item_id": 1,
+#             "unit_price": 24.99,
+#             "message": "nadlkfnajdf",
+#             "special_instructions": "some"
+#         }
+#     ]
+# }
+
+    @action(detail=False, methods=['POST'], name='Create orders')
+    def create_orders(self, request):
+        order_items_data = request.data.pop('order_items')
+
+        user_id = request.data.pop('user')
+        user = User.objects.get(pk=user_id)
+
+        order = Order.objects.create(user=user, **request.data)
+        for oi in order_items_data:
+            id = oi.pop('id')
+            product = item.objects.get(pk=id)
+            order_item.objects.create(Order=order, item=product, **oi)
+            ##returning an httpresponse
+        return HttpResponse(order)
 
 # class CustomerOrderViewSet(NestedViewSetMixin, ModelViewSet):
 #     """

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from floraison.models import item, order, cookie_type, order_item
+from floraison.models import item, Order, cookie_type, order_item
 
 ### IMPORTANT: May need to change gitpod link each time a new workspace is opened ###
 BASE_API_URL = 'https://8000-anthonydeva-djangobacke-pk8s8czgzh1.ws-us43.gitpod.io/'
@@ -36,33 +36,28 @@ class CookieTypeSerializer(serializers.ModelSerializer):
         if obj.image:
             return BASE_API_URL + obj.image.url
 
-class OrderItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = order_item
-        fields = [
-            'message',
-            'special_instructions',
-        ]
-
-class OrderSerializer(serializers.ModelSerializer, serializers.Serializer):
-    order_items = serializers.ListField()
+class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = order
+        model = Order
         fields = [
+            'id',
             'total',
             'paid',
             'completed',
             'due_date',
             'user',
-            'order_items'
         ]
 
-    def create(self, validated_data):
-        order_items_data = validated_data.pop('order_items')
-        order = order.objects.create(**validated_data)
-        for oi in order_items_data:
-            item_id = oi.pop('item_id')
-            item = item.objects.get(pk=item_id)
-            oi.objects.create(order=order, item=item, **order_item)
-        return order
+class OrderItemSerializer(serializers.ModelSerializer):
+    item = ItemSerializer()
+    order = OrderSerializer()
+    class Meta:
+        model = order_item
+        fields = [
+            'item',
+            'order',
+            'unit_price',
+            'message',
+            'special_instructions',
+        ]
