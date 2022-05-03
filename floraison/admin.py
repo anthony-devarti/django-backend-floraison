@@ -3,7 +3,7 @@ from .models import *
 
 # Register your models here.
 admin.site.register(user_address)
-admin.site.register(order)
+admin.site.register(Order)
 admin.site.register(category)
 admin.site.register(cookie_type)
 admin.site.register(cake_type)
