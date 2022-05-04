@@ -27,6 +27,7 @@ django-phonenumber-field==6.1.0
 django-phonenumbers==1.0.1
 django-rest-framework==0.1.0
 djangorestframework==3.13.1
+djangorestframework-simplejwt==5.1.0
 docutils==0.18.1
 drf-extensions==0.7.1
 entrypoints==0.4
@@ -87,6 +88,7 @@ pycparser==2.21
 pydocstyle==6.1.1
 pyflakes==2.4.0
 Pygments==2.11.2
+PyJWT==2.3.0
 pylama==8.3.8
 pylint==2.13.4
 pyparsing==3.0.7
