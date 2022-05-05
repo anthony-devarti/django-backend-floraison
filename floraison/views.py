@@ -52,7 +52,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all().order_by('-due_date')
     serializer_class = OrderSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['id', 'user']
+    filterset_fields = ['id', 'user', 'completed']
     # permission_classes = [IsAuthenticated]
     #I may need to filter further to remove orders that have been marked as completed
 
