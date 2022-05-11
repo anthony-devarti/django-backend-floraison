@@ -34,7 +34,9 @@ SECRET_KEY = env('SECRET_KEY')
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#but what about my styles?!
+#they go away when this is false
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
@@ -161,3 +163,5 @@ REST_FRAMEWORK = {
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+import django_heroku
+django_heroku.settings(locals())
