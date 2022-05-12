@@ -13,14 +13,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'username', 'email', 'groups']
 
 class ItemSerializer(serializers.ModelSerializer):
-    # photo = serializers.SerializerMethodField('get_img_url')
     class Meta:
         model = item
         fields = '__all__'
-        
-    # def get_img_url(self, obj):
-    #     if obj.photo:
-    #         return BASE_API_URL + obj.photo.url
+    
 
 # class OrderSerializer(serializers.ModelSerializer):
 #     class Meta:
