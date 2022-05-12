@@ -24,4 +24,6 @@ urlpatterns = [
     path("", HomePageView.as_view(), name="home"),
     path('login/', MyObtainTokenPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
++ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
++ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
