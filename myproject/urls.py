@@ -18,12 +18,14 @@ from django.urls import path, include
 from rest_framework import routers
 from floraison import views
 from django.conf import settings
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from django.views.static import serve
+
 
 router = routers.DefaultRouter()
 
@@ -35,5 +37,11 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
-if settings.DEBUG:  # new
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:  # new
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# this was working in debug mode, but we needed to be more specific
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve, {
+        'document_root': settings.MEDIA_ROOT,
+    }),
+]
