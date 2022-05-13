@@ -24,14 +24,15 @@ class ItemSerializer(serializers.ModelSerializer):
 #         fields = '__all__'
 
 class CookieTypeSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField('get_cookie_img_url')
+    # image = serializers.SerializerMethodField('get_cookie_img_url')
     class Meta:
         model = cookie_type
         fields = "__all__"
 
-    def get_cookie_img_url(self, obj):
-        if obj.image:
-            return BASE_API_URL + obj.image.url
+#removed image serializer behavior to match the working item serializer which is working as expectd.
+    # def get_cookie_img_url(self, obj):
+    #     if obj.image:
+    #         return BASE_API_URL + obj.image.url
 
 class OrderSerializer(serializers.ModelSerializer):
 
