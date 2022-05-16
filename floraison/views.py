@@ -3,8 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets, status
 from rest_framework import permissions
 from django.contrib.auth.models import User
-from floraison.serializers import UserSerializer, ItemSerializer, OrderSerializer, CookieTypeSerializer, OrderItemSerializer
-from .models import item, Order, cookie_type, order_item
+from floraison.serializers import UserSerializer, ItemSerializer, OrderSerializer, CookieTypeSerializer, OrderItemSerializer, MessageSerializer
+from .models import item, Order, cookie_type, order_item, Message
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
@@ -133,3 +133,12 @@ class OrderItemViewSet(viewsets.ModelViewSet):
 class MyObtainTokenPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
+
+class MessageViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for messages sent from page
+    """
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['Email']

@@ -17,6 +17,7 @@ router.register(r'users', views.UserViewSet)
 router.register(r'Orders', views.OrderViewSet)
 router.register(r'cookie_type', views.CookieViewSet)
 router.register(r'order_item', views.OrderItemViewSet)
+router.register(r'message', views.MessageViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),

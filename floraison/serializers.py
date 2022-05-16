@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from floraison.models import item, Order, cookie_type, order_item
+from floraison.models import item, Order, cookie_type, order_item, Message
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 ### IMPORTANT: May need to change gitpod link each time a new workspace is opened ###
@@ -72,3 +72,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # Add custom claims
         token['username'] = user.username
         return token
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = '__all__'
